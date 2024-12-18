@@ -1,7 +1,7 @@
 "use client"
 
-import { IDummyData } from "app/api/getDummy/route";
 import { useEffect } from "react";
+import { IDummyData } from "../api/getDummy/route";
 
 export async function getDummy(): Promise<IDummyData[]> {
     const res = await fetch("/api/getDummy");
