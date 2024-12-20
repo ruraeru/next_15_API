@@ -8,25 +8,70 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  username   String   @unique
-  email      String   @unique
-  password   String
-  github_id  String?  @unique
-  avatar     String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  Posts      Posts[]
+  id            Int           @id @default(autoincrement())
+  username      String        @unique
+  email         String        @unique
+  password      String
+  github_id     String?       @unique
+  avatar        String?
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  posts         Post[]
+  likes         Like[]
+  comments      Comment[]
+  like_comments LikeComment[]
 }
 
-model Posts {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String
-  views       Int    @default(0)
+model Post {
+  id    Int     @id @default(autoincrement())
+  title String
+  text  String
+  photo String?
+  views Int     @default(0)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  likes      Like[]
+  comments   Comment[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  payload String
+  likes   Int    @default(0)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     Int
+
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int
+  post          Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId        Int
+  like_comments LikeComment[]
+}
+
+model Like {
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId Int
+  postId Int
+
+  @@id(name: "id", [userId, postId])
+}
+
+model LikeComment {
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId Int
+  userId    Int
+
+  @@id(name: "id", [commentId, userId])
 }

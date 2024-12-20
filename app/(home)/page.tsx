@@ -101,8 +101,8 @@ export default function Page() {
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla architecto commodi eius explicabo quidem sed ullam magni incidunt deleniti repellendus quisquam officia itaque eligendi fuga, tenetur facilis error, nobis ratione? Quam,
                         </p>
                         <div className="mb-5 flex flex-col gap-2">
-                            <span className="font-semibold text-neutral-600 italic">2024.12.19</span>
-                            <ul className="flex items-center gap-3 *:text-xs font-semibold *:border-2 *:rounded-full *:p-1 *:px-2 *:border-neutral-300 *:text-neutral-500
+                            <span className="font-semibold text-sm text-neutral-600 italic">2024.12.19</span>
+                            <ul className="flex items-center justify-start gap-3 *:text-xs font-semibold *:border-2 *:rounded-full *:p-1 *:px-2 *:border-neutral-300 *:text-neutral-500
                             ">
                                 <li>Mysql</li>
                                 <li>Prisma</li>
