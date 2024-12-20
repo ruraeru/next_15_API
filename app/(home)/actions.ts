@@ -1,6 +1,6 @@
 "use server";
 
-import db from "../lib/db";
+import db from "../../lib/db";
 import { revalidateTag } from "next/cache";
 
 export async function createUser() {

@@ -1,4 +1,4 @@
-import db from "@/app/lib/db";
+import db from "@/lib/db";
 import { unstable_cache as nextCache } from "next/cache";
 
 async function getUsers() {
