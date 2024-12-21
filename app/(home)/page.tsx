@@ -1,7 +1,4 @@
 import ArticleList from "@/components/article-list";
-import Footer from "@/components/footer";
-import MainSideBar from "@/components/main-side-bar";
-import SearchBar from "@/components/search-bar";
 import db from "@/lib/db";
 import { Prisma } from "@prisma/client";
 

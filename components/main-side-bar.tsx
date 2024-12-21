@@ -9,7 +9,7 @@ export default function MainSideBar() {
             <div className="*:text-white flex flex-col items-center">
                 <div className="flex items-center justify-between w-full p-4 *:font-bold ">
                     <div>
-                        <a className="flex items-center gap-3">
+                        <Link href="/" className="flex items-center gap-3">
                             <div className="w-[60px] h-[60px] relative rounded-full overflow-hidden">
                                 <Image
                                     fill
@@ -20,21 +20,21 @@ export default function MainSideBar() {
                                 />
                             </div>
                             <span className="font-bold text-lg">엔드프론트-DEV</span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col gap-10">
                 <div className="bg-white p-2 px-5 rounded-full">
-                    <ul className="*:flex *:items-center *:gap-2 flex items-center gap-3 *:font-bold">
+                    <ul className="*:flex *:items-center *:gap-2 flex items-center gap-3 *:font-bold *:text-black">
                         <li>
                             <MdOutlineWbSunny />
-                            Light
+                            <span>Light</span>
                         </li>
                         <li>|</li>
                         <li>
                             <FaRegMoon />
-                            Dark
+                            <span>Dark</span>
                         </li>
                     </ul>
                 </div>
