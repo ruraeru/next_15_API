@@ -1,5 +1,8 @@
 import { Metadata } from "next";
 import "./globals.css";
+import MainSideBar from "@/components/main-side-bar";
+import SearchBar from "@/components/search-bar";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: 'Next.js',
@@ -12,8 +15,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="w-screen h-screen">{children}</body>
+    <html>
+      <body className="w-screen h-screen flex">
+        <MainSideBar />
+        <div className="w-full relative">
+          <SearchBar />
+          <main className="w-full">
+            {children}
+          </main>
+          <Footer />
+        </div>
+      </body>
     </html>
   )
 }

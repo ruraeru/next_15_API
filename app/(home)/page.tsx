@@ -24,14 +24,6 @@ export type InitialArticle = Prisma.PromiseReturnType<typeof getInitialAriticle>
 export default async function Page() {
     const initialArticle = await getInitialAriticle();
     return (
-        <div className="flex">
-            <MainSideBar />
-            <main className="col-span-4 flex flex-col items-center gap-5 relative h-screen">
-                {/* 검색 부분 */}
-                <SearchBar />
-                <ArticleList initialArticle={initialArticle} />
-            </main>
-            <Footer />
-        </div>
+        <ArticleList initialArticle={initialArticle} />
     )
 }

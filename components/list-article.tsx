@@ -1,7 +1,6 @@
 import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { FaUser } from "react-icons/fa";
 import InfoBar from "./article-info-bar";
 
 export default function Article({
@@ -31,38 +30,13 @@ export default function Article({
     }
 }) {
     return (
-        <Link href={`/articles/${id}`} className="relative flex flex-col p-5 rounded-2xl *:text-white bg-neutral-900 gap-2 w-full">
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 justify-start">
-                    <div className="relative size-10 rounded-full overflow-hidden">
-                        {user.avatar !== null ?
-                            <Image
-                                fill
-                                sizes="(max-width-40px) (max-height-40px)"
-                                src={user.avatar}
-                                alt={user.username}
-                                priority
-                            />
-                            : <FaUser className="size-10" />}
-                    </div>
-                    <div className="flex flex-col gap-0 justify-center">
-                        <h1 className="text-xl font-bold">{user.username}</h1>
-                        <span className="text-xs text-stone-400">@{user.username}</span>
-                    </div>
-                </div>
-                <span className="text-xs text-stone-400 whitespace-nowrap">
-                    {/* {formatToTimeAgo(created_at.toString())} */}
-                </span>
-            </div>
-            <div className="flex flex-col justify-center gap-2 overflow-hidden">
-                <div className="*:truncate w-1/2">
-                    <h1 className="text-lg">{title}</h1>
-                </div>
+        <Link href={`/articles/${id}`} className="relative flex flex-col p-5 rounded-2xl *:text-white bg-neutral-900 gap-2 max-h-[333px]">
+            <div className="flex flex-col gap-2">
                 <div className="flex justify-center">
                     {photo !== null && (
-                        <div className="relative w-[468px] h-[568px]">
+                        <div className="relative w-[171px] h-[87.5px]">
                             <Image
-                                className="rounded-md object-contain"
+                                className="rounded-md object-co"
                                 fill
                                 sizes="(max-width-468px) (max-height-568px)"
                                 src={photo}
@@ -72,14 +46,16 @@ export default function Article({
                         </div>
                     )}
                 </div>
-                <div className="*:truncate w-1/2">
-                    <p className="text-sm break-all">
-                        <span className="text-sm font-semibold mr-2">{user.username}</span>
+                <div className="flex flex-col *:truncate *:whitespace-break-spaces">
+                    <h1 className="text-lg line-clamp-2">
+                        {title}
+                    </h1>
+                    <p className="text-sm line-clamp-3 opacity-50">
                         {text}
                     </p>
                 </div>
+                <InfoBar {..._count} views={views} />
             </div>
-            <InfoBar {..._count} views={views} />
         </Link>
     )
 }

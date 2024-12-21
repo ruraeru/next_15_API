@@ -21,8 +21,10 @@ export default function ArticleList({ initialArticle }: { initialArticle: Initia
     }, [page]);
 
     return (
-        <article className="col-span-4 p-5 gap-5 grid grid-cols-4 grid-rows-2 overflow-hidden">
-            <div>
+        <article className="h-full w-full">
+            <div className="p-5 
+            grid grid-cols-4 gap-5 grid-rows-2
+            ">
                 {articles.map((article) => (
                     <Article key={article.id} {...article} />
                 ))}
