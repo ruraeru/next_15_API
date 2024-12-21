@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa";
+import InfoBar from "./article-info-bar";
 
 export default function Article({
     title,
@@ -11,7 +12,8 @@ export default function Article({
     views,
     created_at,
     userId,
-    user
+    user,
+    _count
 }: {
     title: string;
     id: number;
@@ -22,9 +24,14 @@ export default function Article({
     created_at: Date;
     updated_at: Date;
     userId: number;
+    _count: {
+        user: number;
+        likes: number;
+        comments: number;
+    }
 }) {
     return (
-        <Link href={`/tweets/${id}`} className="relative flex flex-col p-5 rounded-2xl *:text-white bg-neutral-900 gap-2 w-full">
+        <Link href={`/articles/${id}`} className="relative flex flex-col p-5 rounded-2xl *:text-white bg-neutral-900 gap-2 w-full">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 justify-start">
                     <div className="relative size-10 rounded-full overflow-hidden">
@@ -72,7 +79,7 @@ export default function Article({
                     </p>
                 </div>
             </div>
-            {/* <InfoBar {..._count} views={views} /> */}
+            <InfoBar {..._count} views={views} />
         </Link>
     )
 }
