@@ -10,7 +10,6 @@ export async function createUser() {
     email: Math.random().toString(36).substring(2, 11),
     password: Math.random().toString(36).substring(2, 11),
   };
-  console.log(data);
 
   const user = await db.user.create({
     data: {

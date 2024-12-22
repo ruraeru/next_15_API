@@ -1,3 +1,4 @@
+import Comments from "@/components/comments";
 import db from "@/lib/db";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -22,7 +23,7 @@ export default async function DetailArticle({ params }: { params: Promise<{ id: 
         return notFound();
     }
     return (
-        <div className="relative">
+        <div className="relative w-screen">
             {article.photo && (
                 <div className="w-full h-[500px] relative">
                     <Image
@@ -41,6 +42,7 @@ export default async function DetailArticle({ params }: { params: Promise<{ id: 
                     <p>{article?.text}</p>
                 </div>
             </main>
+            <Comments />
         </div>
     )
 }

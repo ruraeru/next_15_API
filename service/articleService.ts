@@ -15,7 +15,6 @@ export async function getArticleByPage(page: number) {
       created_at: "desc",
     },
   });
-  console.log("qweqwe", articles);
   return articles;
 }
 

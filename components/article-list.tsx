@@ -22,9 +22,13 @@ export default function ArticleList({ initialArticle }: { initialArticle: Initia
 
     return (
         <article className="h-full w-full">
-            <div className="p-5 
-            grid grid-cols-4 gap-5 grid-rows-2
-            ">
+            <div style={{
+                width: "100%",
+                padding: "32px",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, 320px)",
+                gap: 32
+            }}>
                 {articles.map((article) => (
                     <Article key={article.id} {...article} />
                 ))}
