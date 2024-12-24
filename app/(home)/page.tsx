@@ -61,7 +61,7 @@ export default async function Page() {
                     <ul className="flex gap-5 items-center justify-center">
                         {postDatas.map((data, index) => (
                             <li key={data.id} className="max-w-[320px]">
-                                <Link href={`/test/${data.id}`}>
+                                <Link href={`/articles/${data.id}`}>
                                     <div className="flex justify-center">
                                         <div className="relative w-[320px] h-[167px]">
                                             <Image

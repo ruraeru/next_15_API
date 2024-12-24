@@ -1,48 +1,62 @@
-import Comments from "@/components/comments";
-import db from "@/lib/db";
+import path from "path";
+import matter from "gray-matter";
+import fs from "fs";
 import Image from "next/image";
-import { notFound } from "next/navigation";
-
-async function getArticleDetail(id: number) {
-    const article = await db.post.findUnique({
-        where: {
-            id
-        },
-    });
-    return article;
+interface IPostData {
+    id: string;
+    content: string;
+    title: string;
+    date: string;
+    img: string;
+    category: string;
 }
-
-export default async function DetailArticle({ params }: { params: Promise<{ id: string }> }) {
+export default async function Mdx({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const paramsId = Number(id);
-    if (isNaN(paramsId)) {
-        return notFound();
+    function getSortedPostsData(): IPostData[] {
+        const postsDirectory = path.join(process.cwd(), "/aticles");
+        const fileNames = fs.readdirSync(postsDirectory).filter((fileName) => fileName === `${id}.mdx`);
+
+        const allPostsData = fileNames.map((fileName) => {
+            const id = fileName.replace(/\.mdx$/, "");
+
+            const fullPath = path.join(postsDirectory, fileName);
+            const fileContents = fs.readFileSync(fullPath, "utf8");
+            const matterResult = matter(fileContents);
+            return {
+                id,
+                content: matterResult.content,
+                title: matterResult.data.title,
+                date: matterResult.data.date,
+                category: matterResult.data.catagory,
+                img: matterResult.data.img,
+                ...matterResult.data
+            };
+        });
+        return allPostsData;
     }
-    const article = await getArticleDetail(Number(id));
-    if (!article) {
-        return notFound();
-    }
+
+    const postDatas = getSortedPostsData();
+
     return (
-        <div className="relative w-screen">
-            {article.photo && (
-                <div className="w-full h-[500px] relative">
-                    <Image
-                        fill
-                        className="object-cover"
-                        src={article.photo}
-                        alt="s"
-                    />
-                </div>
-            )}
-            <div className="absolute top-1/3 p-3">
-                <h1 className="text-white text-5xl font-semibold bg-black p-3">{article?.title}</h1>
+        <section className="commu_board w-[600px] mx-auto mt-10 p-4">
+            <div>
+                <ul>
+                    {postDatas.map((data, index) => (
+                        <li key={data.id}>
+                            <div className="flex items-center border-b border-[#dbdbdb]">
+                                <div className="w-[110px]">{index + 1}</div>
+                                <div className="flex-1 text-left py-8 leading-10 font-semibold text-[32px] overflow-hidden text-ellipsis whitespace-nowrap">
+                                    {data.title}
+                                </div>
+                                <div className="w-[110px]">{data.date}</div>
+                                <div className="w-[110px]">{data.category}</div>
+                            </div>
+                            <Image src={data.img} alt="asd" width={400} height={400} />
+                            <div className="m-4 text-center">{data.content}</div>
+                        </li>
+                    ))}
+                </ul>
             </div>
-            <main className="p-5 text-white">
-                <div className="bg-black p-5">
-                    <p>{article?.text}</p>
-                </div>
-            </main>
-            <Comments />
-        </div>
-    )
+        </section>
+    );
 }
